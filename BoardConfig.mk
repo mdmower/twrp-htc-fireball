@@ -1,0 +1,28 @@
+USE_CAMERA_STUB := true
+
+# inherit from the proprietary version
+-include vendor/htc/fireball/BoardConfigVendor.mk
+
+TARGET_NO_BOOTLOADER := true
+TARGET_BOARD_PLATFORM := unknown
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_BOOTLOADER_BOARD_NAME := fireball
+
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8
+BOARD_KERNEL_BASE := 0x80400000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_FORCE_RAMDISK_ADDRESS := 0x81800000
+
+# fix this up by examining /proc/emmc on a running device
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x01000000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00fffe00
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x47fffc00
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x49fffe00
+BOARD_FLASH_BLOCK_SIZE := 131072
+
+TARGET_PREBUILT_KERNEL := device/htc/fireball/kernel
+#TARGET_RECOVERY_INITRC := device/htc/fireball/recovery/init.rc
+
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_HAS_LARGE_FILESYSTEM := true
