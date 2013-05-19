@@ -7,16 +7,18 @@ USE_CAMERA_STUB := true
 TARGET_BOOTLOADER_BOARD_NAME := fireball
 TARGET_NO_BOOTLOADER := true
 
-# Architecture
-TARGET_ARCH := arm
+# Platform
 TARGET_BOARD_PLATFORM := msm8960
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
+
+# Architecture
+TARGET_ARCH := arm
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_CPU_SMP := true
 TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
 
 # Kernel
