@@ -47,6 +47,9 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_VOLD_MAX_PARTITIONS := 36
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
+# Charge mode
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
+
 # TWRP
 DEVICE_RESOLUTION := 540x960
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
