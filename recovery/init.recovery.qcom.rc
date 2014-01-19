@@ -1,4 +1,7 @@
 on boot
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/android0/enable 1
     start choice_fn
 
 service choice_fn /sbin/choice_fn
@@ -12,13 +15,3 @@ service offmode_charging /sbin/offmode_charging
 
 service detect_key /sbin/detect_key
     disabled
-
-on property:sys.storage.ums_enabled=1
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/functions adb,mass_storage
-    write /sys/class/android_usb/android0/enable 1
-
-on property:sys.storage.ums_enabled=0
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/functions adb
-    write /sys/class/android_usb/android0/enable ${service.adb.root}
