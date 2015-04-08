@@ -88,6 +88,11 @@ BOARD_SEPOLICY_UNION += \
     akmd.te \
     ewtzmud.te
 
+# Vendor Init
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_fireball
+TARGET_LIBINIT_DEFINES_FILE := device/htc/fireball/init/init_fireball.c
+
 # TWRP
 TW_THEME := portrait_mdpi
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -97,4 +102,4 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_INCLUDE_CRYPTO := true
 BOARD_RECOVERY_BLDRMSG_OFFSET := 2048
 RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_DEVICE_MODULES := chargeled
+TARGET_RECOVERY_DEVICE_MODULES := chargeled libinit_fireball
