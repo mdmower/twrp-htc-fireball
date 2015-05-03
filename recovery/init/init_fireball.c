@@ -74,5 +74,9 @@ void vendor_load_properties() {
         symlink((const char *)("/etc/recovery.fstab.fbx"),
                 (const char *)("/etc/twrp.fstab"));
         ERROR("Found swapped partition scheme; fireballx device name applied");
+    } else {
+        property_set("ro.product.device", "fireball");
+        property_set("ro.build.product", "fireball");
+        ERROR("Found standard partition scheme; fireball device name applied");
     }
 }
