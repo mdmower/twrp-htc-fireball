@@ -55,20 +55,42 @@ void vendor_load_properties() {
     int rc;
 
     rc = property_get("ro.board.platform", platform);
-    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
+    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX)) {
+        property_set("ro.product.device", "fireball");
+        property_set("ro.build.product", "fireball");
         return;
+    }
 
     detected_fs_type_data = blkid_get_tag_value(NULL, "TYPE", BLK_PART_ORIG_DATA);
-    if (detected_fs_type_data == NULL)
+    if (detected_fs_type_data == NULL) {
+        /*
+         * This may be encountered if by-name/userdata is encrypted
+         * when the standard partition scheme is in use. Apply the
+         * default device name.
+         */
+        property_set("ro.product.device", "fireball");
+        property_set("ro.build.product", "fireball");
         return;
+    }
 
-    detected_fs_type_stor = blkid_get_tag_value(NULL, "TYPE", BLK_PART_ORIG_STOR);
-    if (detected_fs_type_stor == NULL)
-        return;
+    /* detected_fs_type_stor = blkid_get_tag_value(NULL, "TYPE", BLK_PART_ORIG_STOR); */
+    /*
+     * Do not fail if the fstype of by-name/fat cannot be detected.
+     * This may be encountered if the block device is encrypted in
+     * the swapped partition scheme.
+     *
+     * FIXME: Until a more reliable check can be performed, we rely
+     * on the fstype of by-name/userdata to tell us if the swapped
+     * partition scheme is active.
+     */
 
+#if 0
     if (strcmp(detected_fs_type_data, "vfat") == 0 &&
             (strcmp(detected_fs_type_stor, "ext4") == 0 ||
              strcmp(detected_fs_type_stor, "f2fs") == 0)) {
+#else
+    if (strcmp(detected_fs_type_data, "vfat") == 0) {
+#endif
         property_set("ro.product.device", "fireballx");
         property_set("ro.build.product", "fireballx");
         symlink((const char *)("/etc/recovery.fstab.fbx"),
