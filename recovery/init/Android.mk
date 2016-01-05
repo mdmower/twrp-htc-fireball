@@ -16,7 +16,7 @@ LOCAL_CFLAGS := \
     -Wall \
     -DANDROID_TARGET=\"$(TARGET_BOARD_PLATFORM)\"
 
-LOCAL_SRC_FILES := init_fireball.c
+LOCAL_SRC_FILES := init_fireball.cpp
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libinit_fireball

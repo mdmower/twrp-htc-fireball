@@ -38,7 +38,7 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80400000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01700000
 TARGET_KERNEL_CONFIG := fighter_defconfig
@@ -46,9 +46,6 @@ TARGET_KERNEL_SOURCE := kernel/htc/msm8960
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
-
-# Flags
-COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
 # Graphics
 USE_OPENGL_RENDERER := true
@@ -63,6 +60,7 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16776704
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1207958528
@@ -81,17 +79,11 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
 
 # SELinux
 -include device/qcom/sepolicy/sepolicy.mk
-
 BOARD_SEPOLICY_DIRS += device/htc/fireball/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    akmd.te \
-    ewtzmud.te
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_fireball
-TARGET_LIBINIT_DEFINES_FILE := device/htc/fireball/init/init_fireball.c
 
 # TWRP
 TW_THEME := portrait_mdpi
@@ -102,4 +94,5 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_INCLUDE_CRYPTO := true
 BOARD_RECOVERY_BLDRMSG_OFFSET := 2048
 RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_DEVICE_MODULES := chargeled libinit_fireball
+TARGET_RECOVERY_DEVICE_MODULES := chargeled
+TW_INCLUDE_NTFS_3G := true
