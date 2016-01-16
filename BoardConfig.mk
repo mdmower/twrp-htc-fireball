@@ -38,7 +38,7 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80400000
-BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=qcom
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01700000
 TARGET_KERNEL_CONFIG := fighter_defconfig
@@ -69,10 +69,12 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_BLDRMSG_OFFSET := 2048
+TARGET_RECOVERY_DEVICE_MODULES := chargeled
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 37
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
 # Charge mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
@@ -86,13 +88,8 @@ TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_fireball
 
 # TWRP
-TW_THEME := portrait_mdpi
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TW_NO_SCREEN_BLANK := true
-TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_INCLUDE_CRYPTO := true
-BOARD_RECOVERY_BLDRMSG_OFFSET := 2048
 RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_DEVICE_MODULES := chargeled
+TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
