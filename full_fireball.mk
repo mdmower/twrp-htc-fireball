@@ -14,18 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Get non-open-source specific aspects
-$(call inherit-product-if-exists, vendor/htc/fireball/fireball-vendor.mk)
+# Inherit from fireball device
+$(call inherit-product, device/htc/fireball/device.mk)
 
-# Overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/fireball/overlay
-
-# Screen density
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-
-# Boot animation
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
+# Set those variables here to overwrite the inherited values.
+PRODUCT_BRAND := htc
+PRODUCT_DEVICE := fireball
+PRODUCT_MANUFACTURER := HTC
+PRODUCT_MODEL := Incredible 4G LTE
+PRODUCT_NAME := full_fireball
