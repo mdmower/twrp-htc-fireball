@@ -85,11 +85,8 @@ BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
 -include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/htc/fireball/sepolicy
 
-# Vendor Init
-TARGET_UNIFIED_DEVICE := true
-TARGET_INIT_VENDOR_LIB := libinit_fireball
-
 # TWRP
+RECOVERY_SDCARD_ON_DATA := true
 RECOVERY_VARIANT := twrp
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true

@@ -24,4 +24,5 @@ PRODUCT_NAME := cm_fireball
 
 # Override build props
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=fireball
+    PRODUCT_NAME=fireballx \
+    TARGET_DEVICE=fireballx
