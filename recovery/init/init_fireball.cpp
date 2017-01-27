@@ -27,14 +27,15 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
 #include <blkid/blkid.h>
+#include <stdlib.h>
+#include <string>
 #include <unistd.h>
 
-#include "vendor_init.h"
-#include "property_service.h"
 #include "log.h"
+#include "property_service.h"
 #include "util.h"
+#include "vendor_init.h"
 
 /*
  *  The original partitions for data and internal storage are by-name/userdata
@@ -49,13 +50,11 @@
 #define BLK_PART_ORIG_STOR "/dev/block/platform/msm_sdcc.1/by-name/fat"
 
 void vendor_load_properties() {
-    char platform[PROP_VALUE_MAX];
-    char *detected_fs_type_data;
-    char *detected_fs_type_stor;
-    int rc;
+    char *detected_fs_type_data = NULL;
+    /* char *detected_fs_type_stor = NULL; */
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX)) {
+    std::string platform = property_get("ro.board.platform");
+    if (platform != ANDROID_TARGET) {
         property_set("ro.product.device", "fireball");
         property_set("ro.build.product", "fireball");
         return;
