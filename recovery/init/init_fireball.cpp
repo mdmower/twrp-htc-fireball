@@ -29,8 +29,11 @@
 
 #include <blkid/blkid.h>
 #include <stdlib.h>
-#include <string>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 #include <unistd.h>
+
+#include <string>
 
 #include "log.h"
 #include "property_service.h"
@@ -49,14 +52,24 @@
 #define BLK_PART_ORIG_DATA "/dev/block/platform/msm_sdcc.1/by-name/userdata"
 #define BLK_PART_ORIG_STOR "/dev/block/platform/msm_sdcc.1/by-name/fat"
 
+void property_override(char const prop[], char const value[]) {
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
+
 void vendor_load_properties() {
     char *detected_fs_type_data = NULL;
     /* char *detected_fs_type_stor = NULL; */
 
     std::string platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET) {
-        property_set("ro.product.device", "fireball");
-        property_set("ro.build.product", "fireball");
+        property_override("ro.product.device", "fireball");
+        property_override("ro.build.product", "fireball");
         return;
     }
 
@@ -67,8 +80,8 @@ void vendor_load_properties() {
          * when the standard partition scheme is in use. Apply the
          * default device name.
          */
-        property_set("ro.product.device", "fireball");
-        property_set("ro.build.product", "fireball");
+        property_override("ro.product.device", "fireball");
+        property_override("ro.build.product", "fireball");
         return;
     }
 
@@ -90,14 +103,14 @@ void vendor_load_properties() {
 #else
     if (strcmp(detected_fs_type_data, "vfat") == 0) {
 #endif
-        property_set("ro.product.device", "fireballx");
-        property_set("ro.build.product", "fireballx");
+        property_override("ro.product.device", "fireballx");
+        property_override("ro.build.product", "fireballx");
         symlink((const char *)("/etc/recovery.fstab.fbx"),
                 (const char *)("/etc/twrp.fstab"));
         ERROR("Found swapped partition scheme; fireballx device name applied");
     } else {
-        property_set("ro.product.device", "fireball");
-        property_set("ro.build.product", "fireball");
+        property_override("ro.product.device", "fireball");
+        property_override("ro.build.product", "fireball");
         ERROR("Found standard partition scheme; fireball device name applied");
     }
 }
